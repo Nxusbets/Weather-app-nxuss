@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { motion } from 'framer-motion'; 
-
 import WeatherCard from './WeatherCard';
 import ErrorMessage from './ErrorMessage';
-
 import 'bootstrap/dist/css/bootstrap.min.css'; 
+import './App.css';
 
 const App = () => {
   const [city, setCity] = useState('');

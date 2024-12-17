@@ -1,38 +1,35 @@
-.App {
-  text-align: center;
+/* App.css */
+
+/* Fondo animado */
+@keyframes cloudMove {
+  0% { transform: translateX(-100%); }  /* Empieza fuera de la pantalla a la izquierda */
+  100% { transform: translateX(100%); } /* Termina fuera de la pantalla a la derecha */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  /* Fondo de pantalla repetido horizontalmente */
+  background: url('https://img.freepik.com/fotos-premium/puesta-sol-cielo-rojo-fondo-horizontal-nubes_231786-3854.jpg') repeat-x;
+  
+  /* Aplica la animación de desplazamiento horizontal */
+ 
+  
+  background-size: cover;  /* Ajusta el tamaño del fondo para cubrir toda la pantalla */
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  height: 100vh;  /* Asegúrate de que el fondo ocupe toda la altura de la ventana */
+  overflow: hidden;  /* Elimina cualquier barra de desplazamiento */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Asegura que el contenido se muestre por encima del fondo */
+.container {
+  z-index: 2;
+  position: relative;
+  padding-top: 50px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Estilos del encabezado y texto */
+h1, p {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);  /* Sombra para el texto */
+  text-align: center;  /* Centrado del texto */
 }

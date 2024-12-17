@@ -1,57 +1,60 @@
 import React from 'react';
-import { Card, Col, Row, Badge } from 'react-bootstrap';
-import { FaCloud, FaSun, FaCloudRain, FaWind } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-
-// Función para obtener el icono basado en la descripción del clima
-const getWeatherIcon = (description) => {
-  if (description.includes("clear")) return <FaSun size={50} color="#FFA500" />;
-  if (description.includes("cloud")) return <FaCloud size={50} color="#B0C4DE" />;
-  if (description.includes("rain")) return <FaCloudRain size={50} color="#4682B4" />;
-  return <FaCloud size={50} color="#A9A9A9" />;
-};
+import { Card, Col, Row, Button } from 'react-bootstrap';
+import { FaShareAlt, FaFacebook, FaTwitter, FaWhatsapp } from 'react-icons/fa';  // Icons de compartir
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton, EmailShareButton } from 'react-share'; // Componentes de compartir
 
 const WeatherCard = ({ weather }) => {
   const { main, weather: weatherDetails, wind, name } = weather;
-  const description = weatherDetails[0].description;
+
+  // URL para compartir
+  const shareUrl = window.location.href;  // Puede ser cualquier URL que desees compartir
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: -20 }} 
-      animate={{ opacity: 1, y: 0 }} 
-      transition={{ type: 'spring', stiffness: 100 }}
-    >
-      <Row className="mt-4 justify-content-center">
-        <Col md={6} lg={4} className="mx-auto">
-          <Card className="shadow-lg border-light rounded">
-            <Card.Body>
-              <Card.Title className="text-center">
-                <h3>{name}</h3>
-                {getWeatherIcon(description)}
-              </Card.Title>
+    <Row className="mt-4">
+      <Col md={6} className="mx-auto">
+        <Card>
+          <Card.Body>
+            <Card.Title className="text-center">{name}</Card.Title>
+            <Card.Text className="text-center">
+              <h4>{weatherDetails[0].description}</h4>
+              <p>Temperatura: {main.temp}°C</p>
+              <p>Humedad: {main.humidity}%</p>
+              <p>Viento: {wind.speed} m/s</p>
+            </Card.Text>
 
-              <Card.Text className="text-center text-muted">
-                <h5>
-                  {description.charAt(0).toUpperCase() + description.slice(1)}
-                </h5>
-                <Badge pill bg="warning" className="mr-2">Temp: {main.temp}°C</Badge>
-                <Badge pill bg="info" className="mr-2">Humedad: {main.humidity}%</Badge>
-                <Badge pill bg="success" className="mr-2">Viento: {wind.speed} m/s</Badge>
-              </Card.Text>
+            {/* Botones de compartir */}
+            <div className="text-center mt-3">
+              <h5>Compartir:</h5>
+              <div>
+                <FacebookShareButton url={shareUrl} quote={`Clima en ${name}: ${weatherDetails[0].description}`}>
+                  <Button variant="primary" className="m-1">
+                    <FaFacebook /> Facebook
+                  </Button>
+                </FacebookShareButton>
 
-              <Row>
-                <Col>
-                  <p className="text-center">Máxima: {main.temp_max}°C</p>
-                </Col>
-                <Col>
-                  <p className="text-center">Mínima: {main.temp_min}°C</p>
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </motion.div>
+                <TwitterShareButton url={shareUrl} title={`Clima en ${name}: ${weatherDetails[0].description}`}>
+                  <Button variant="info" className="m-1">
+                    <FaTwitter /> Twitter
+                  </Button>
+                </TwitterShareButton>
+
+                <WhatsappShareButton url={shareUrl} title={`Clima en ${name}: ${weatherDetails[0].description}`}>
+                  <Button variant="success" className="m-1">
+                    <FaWhatsapp /> WhatsApp
+                  </Button>
+                </WhatsappShareButton>
+
+                <EmailShareButton url={shareUrl} subject={`Clima en ${name}`} body={`Clima en ${name}: ${weatherDetails[0].description}`}>
+                  <Button variant="danger" className="m-1">
+                    <FaShareAlt /> Email
+                  </Button>
+                </EmailShareButton>
+              </div>
+            </div>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
